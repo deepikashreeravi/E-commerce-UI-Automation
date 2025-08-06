@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite">
+    <listeners>
+        <listener class-name="org.example.Listener"></listener>
+    </listeners>
+
+<!--        <test name="RegisterUser" >-->
+<!--            <classes>-->
+<!--                <class name="org.example.TestCases.RegisterUser">-->
+<!--                    &lt;!&ndash;                <methods>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    <include name="addNewPeopleConfig"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    &lt;!&ndash;                    <exclude name="Mobile.*"/>&ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash;                </methods>&ndash;&gt;-->
+<!--                </class>-->
+<!--            </classes>-->
+<!--        </test>-->
+
+    <test name="LoginUser" >
+        <classes>
+            <class name="org.example.TestCases.LoginUser">
+                <!--                <methods>-->
+                <!--                    <include name="addNewPeopleConfig"/>-->
+                <!--                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    <exclude name="Mobile.*"/>&ndash;&gt;-->
+                <!--                </methods>-->
+            </class>
+        </classes>
+    </test>
+
+
+    <test verbose="2" preserve-order="true" name="/home/deepika-12161/IdeaProjects/Project1"><classes/></test>
+
+</suite>

@@ -1,15 +1,15 @@
-package org.example.TestCases;
+package org.example.TestCases.TestCases;
 
 import org.example.BaseTest;
-import org.example.PageObject.contactPage;
-import org.example.PageObject.homePage;
-import org.example.PageObject.loginPage;
-import org.example.PageObject.signupPage;
+import org.example.PageObject.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.awt.*;
@@ -19,9 +19,24 @@ import java.time.Duration;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class LoginUser extends BaseTest {
+public class LoginUserTest  {
 
-    @Test(priority = 1, groups = "login", description = " Login User with correct email and password",enabled = false)
+    WebDriver driver = null;
+    @BeforeClass
+    public void setUp() {
+        BaseTest baseTest = new BaseTest();
+        baseTest.setUp();
+        this.driver= baseTest.driver;
+    }
+
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    @Test(priority = 1, groups = "login", description = " Login User with correct email and password",enabled = true)
     public void loginSuccess(){
         //1. Launch browser and 2. Navigate to url 'http://automationexercise.com'
         //setUp();
@@ -76,7 +91,7 @@ public class LoginUser extends BaseTest {
 //        assertEquals(actual, "ACCOUNT DELETED!", "account not deleted");
     }
 
-    @Test(priority = 2, groups = "login", description = "Logout User",enabled = false)
+    @Test(priority = 2, groups = "login", description = "Logout User",enabled = true)
     public void logout(){
         homePage hp = new homePage(driver);
         hp.navigateHomePage();
@@ -86,7 +101,7 @@ public class LoginUser extends BaseTest {
 
     }
 
-    @Test(priority = 3, groups = "login", description = "Login User with correct email and password",enabled = false)
+    @Test(priority = 3, groups = "login", description = "Login User with correct email and password",enabled = true)
     public void loginWithInvalidCredentials_ShouldFail(){
         loginPage lp = new loginPage(driver);
         lp.navigateLoginPage();
@@ -102,7 +117,7 @@ public class LoginUser extends BaseTest {
         assertEquals(actual, "Your email or password is incorrect!", "error message not displayed");
     }
 
-    @Test(priority = 4, groups = "register", description = "Register User with existing email",enabled = false)
+    @Test(priority = 4, groups = "register", description = "Register User with existing email",enabled = true)
     public void registerUserWithExistingEmail(){
         loginPage lp = new loginPage(driver);
         lp.signup("deepikashree.r@zohocorp.com", "deepika-12161");
@@ -118,7 +133,7 @@ public class LoginUser extends BaseTest {
 
     }
 
-    @Test(priority = 5, groups = "contact", description = "Contact Us Form",enabled = false)
+    @Test(priority = 5, groups = "contact", description = "Contact Us Form",enabled = true)
     public void contactUsForm() throws IOException, InterruptedException, AWTException {
         homePage hp = new homePage(driver);
         //Navigate to url 'http://automationexercise.com'
@@ -148,7 +163,7 @@ public class LoginUser extends BaseTest {
 
     }
 
-    @Test(priority = 6, groups = "testcasepage", description = "Verify Test Cases Page",enabled = false)
+    @Test(priority = 6, groups = "testcasepage", description = "Verify Test Cases Page",enabled = true)
     public void testcasepagenavigation(){
         homePage hp = new homePage(driver);
         hp.navigateHomePage();
@@ -159,7 +174,10 @@ public class LoginUser extends BaseTest {
         assertEquals(driver.getCurrentUrl(), "https://automationexercise.com/test_cases", "User is not navigated to the testcases page.");
 
     }
-    
+
+
+
+
 
 
 }

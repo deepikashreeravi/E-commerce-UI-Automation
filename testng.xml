@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite" parallel="classes" thread-count="4">
     <listeners>
         <listener class-name="org.example.Listener"></listener>
     </listeners>
 
-<!--        <test name="RegisterUser" >-->
+    <test name="AllTests">
+        <classes>
+            <class name="org.example.TestCases.TestCases.RegisterUserTest"/>
+            <class name="org.example.TestCases.TestCases.LoginUserTest"/>
+            <class name="org.example.TestCases.TestCases.CategoryAndBrandTest"/>
+            <class name="org.example.TestCases.TestCases.ProductInteractionTest"/>
+            <!-- Add all other test classes here -->
+        </classes>
+    </test>
+
+<!--        <test name="RegisterUser"  >-->
 <!--            <classes>-->
-<!--                <class name="org.example.TestCases.RegisterUser">-->
+<!--                <class name="org.example.TestCases.TestCases.RegisterUserTest">-->
 <!--                    &lt;!&ndash;                <methods>&ndash;&gt;-->
 <!--                    &lt;!&ndash;                    <include name="addNewPeopleConfig"/>&ndash;&gt;-->
 <!--                    &lt;!&ndash;                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;&ndash;&gt;-->
@@ -16,17 +26,41 @@
 <!--            </classes>-->
 <!--        </test>-->
 
-    <test name="LoginUser" >
-        <classes>
-            <class name="org.example.TestCases.LoginUser">
-                <!--                <methods>-->
-                <!--                    <include name="addNewPeopleConfig"/>-->
-                <!--                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                    <exclude name="Mobile.*"/>&ndash;&gt;-->
-                <!--                </methods>-->
-            </class>
-        </classes>
-    </test>
+<!--    <test name="LoginUser" >-->
+<!--        <classes>-->
+<!--            <class name="org.example.TestCases.TestCases.LoginUser">-->
+<!--                &lt;!&ndash;                <methods>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <include name="addNewPeopleConfig"/>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                    <exclude name="Mobile.*"/>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                </methods>&ndash;&gt;-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="CategoryAndBrandTest" >-->
+<!--        <classes>-->
+<!--            <class name="org.example.TestCases.TestCases.CategoryAndBrandTest">-->
+<!--                &lt;!&ndash;                <methods>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <include name="addNewPeopleConfig"/>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                    <exclude name="Mobile.*"/>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                </methods>&ndash;&gt;-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="ProductInteractionTest" >-->
+<!--        <classes>-->
+<!--            <class name="org.example.TestCases.TestCases.ProductInteractionTest">-->
+<!--                &lt;!&ndash;                <methods>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <include name="addNewPeopleConfig"/>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                    <include name="test123"/>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                    <exclude name="Mobile.*"/>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                </methods>&ndash;&gt;-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 
     <test verbose="2" preserve-order="true" name="/home/deepika-12161/IdeaProjects/Project1"><classes/></test>

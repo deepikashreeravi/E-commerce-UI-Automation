@@ -3,12 +3,17 @@ package org.example;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class Listener extends BaseTest  implements ITestListener {
     ExtentTest test;
@@ -27,11 +32,15 @@ public class Listener extends BaseTest  implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        //Field driverField = testClass.getClass().getSuperclass().getField("driver");
         extentTest.get().fail(result.getThrowable());
         WebDriver driver=null;
 
         try {
             driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+         //   Field driverField = result.getTestClass().getRealClass().getSuperclass().getDeclaredField("driver");
+//            driverField.setAccessible(true);
+//            driver = (WebDriver) driverField.get(result.getInstance());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -71,6 +80,16 @@ public class Listener extends BaseTest  implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         extent.flush();
+    }
+
+    public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver is null, cannot take screenshot.");
+        }
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(source, new File("/home/deepika-12161/build/test/ss"+testCaseName+".png"));
+        return "/home/deepika-12161/build/test/ss"+testCaseName+".png";
     }
 
 

@@ -1,20 +1,14 @@
-package org.example.TestCases;
+package org.example.TestCases.TestCases;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -22,13 +16,21 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class RegisterUser extends BaseTest {
+public class RegisterUserTest {
 
+    WebDriver driver = null;
+    @BeforeClass
+    public void setUp() {
+        BaseTest baseTest = new BaseTest();
+        baseTest.setUp();
+        this.driver= baseTest.driver;
+    }
 
-    public static void main(String[] args) {
-        RegisterUser lp = new RegisterUser();
-        lp.setUp();
-
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Test(priority = 1, groups = "combinedvendors", description = "Verify that home page is visible successfully")
@@ -177,5 +179,6 @@ public class RegisterUser extends BaseTest {
         String actual = driver.findElement(By.className("title")).getText();
         assertEquals(actual, "ACCOUNT DELETED!", "account not deleted");
     }
+
 
 }

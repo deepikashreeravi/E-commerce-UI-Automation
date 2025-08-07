@@ -33,6 +33,10 @@ public class homePage {
         driver.findElement(By.cssSelector("a[href='/logout']")).click();
     }
 
+    public void navigateToProductPage(){
+        driver.findElement(By.cssSelector("a[href='/products']")).click();
+    }
+
     public void accountDeletion(){
         driver.findElement(By.cssSelector("a[href='/delete_account']")).click();
     }

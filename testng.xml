@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite" parallel="classes" thread-count="4">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite" >
+<!--    parallel="classes" thread-count="1"-->
     <listeners>
         <listener class-name="org.example.Listener"></listener>
     </listeners>
@@ -10,6 +11,9 @@
             <class name="org.example.TestCases.TestCases.LoginUserTest"/>
             <class name="org.example.TestCases.TestCases.CategoryAndBrandTest"/>
             <class name="org.example.TestCases.TestCases.ProductInteractionTest"/>
+            <class name="org.example.TestCases.TestCases.SubscriptionTests"/>
+            <class name="org.example.TestCases.TestCases.CartFunctionalityTest"/>
+            <class name="org.example.TestCases.TestCases.OrderPlacementTest"/>
             <!-- Add all other test classes here -->
         </classes>
     </test>

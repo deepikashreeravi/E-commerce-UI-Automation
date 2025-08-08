@@ -2,9 +2,7 @@ package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -48,6 +46,11 @@ public class BaseTest {
             ex.printStackTrace();
             // ScrapyAutomationLogger.logMessage(Level.SEVERE,CLASS_NAME,methodName,null,ex);
         }
+    }
+
+    public void scrollToFooter() {
+        WebElement footer = driver.findElement(By.tagName("footer"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", footer);
     }
 
 }

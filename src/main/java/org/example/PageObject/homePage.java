@@ -24,6 +24,10 @@ public class homePage {
         driver.findElement(By.cssSelector("a[href='/contact_us']")).click();
     }
 
+    public void navigateToCartPageViaHomePage(){
+        driver.findElement(By.cssSelector("a[href='/view_cart']")).click();
+    }
+
 
     public void navigateToTestCasePageViaHomePage(){
         driver.findElement(By.cssSelector("a[href='/test_cases']")).click();
@@ -40,6 +44,11 @@ public class homePage {
     public void accountDeletion(){
         driver.findElement(By.cssSelector("a[href='/delete_account']")).click();
     }
+
+    public String getUserName() {
+        return driver.findElement(By.cssSelector("#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10)")).getText();
+    }
+
 
 
 

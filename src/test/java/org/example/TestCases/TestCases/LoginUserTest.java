@@ -80,7 +80,7 @@ public class LoginUserTest  {
         lp.login("deepikashree.r@zohocorp.com","godi");
 
         //8. Verify that 'Logged in as username' is visible
-        String actual=driver.findElement(By.cssSelector("#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10)")).getText();
+        String actual=hp.getUserName();
         assertEquals(actual, "Logged in as deepika-12161", "Not logged in as user deepika");
 
 //        //9. Click 'Delete Account' button

@@ -23,6 +23,11 @@ import static org.testng.Assert.assertEquals;
 
 public class CategoryAndBrandTest {
 
+    //    Product Listing & Category Tests
+//    Test Case ID	Description
+//    TC18	View Category Products
+//    TC19	View & Cart Brand Products
+
     WebDriver driver = null;
     @BeforeClass
     public void setUp() {
@@ -38,10 +43,6 @@ public class CategoryAndBrandTest {
         }
     }
 
-//    Product Listing & Category Tests
-//    Test Case ID	Description
-//    TC18	View Category Products
-//    TC19	View & Cart Brand Products
 @Test(priority = 1, groups = "productpage", description = "Verify All Products and product detail page",enabled = true)
 public void testProductPage(){
     homePage hp = new homePage(driver);
@@ -61,7 +62,8 @@ public void testProductPage(){
     List<WebElement> productlist = pp.getAllProductElements();
     assertEquals(productlist.size()-1, 34, "35 products not listed");
 
-    productlist.get(0).findElement(By.xpath("//a[starts-with(@href, '/product_details/')]")).click();
+    WebElement pdpbtn=productlist.get(1).findElement(By.xpath("//a[starts-with(@href, '/product_details/')]"));
+    ((JavascriptExecutor)driver).executeScript("arguments[0].click();",pdpbtn );
     new WebDriverWait(driver, Duration.ofSeconds(10))
             .until(d -> ((JavascriptExecutor) d)
                     .executeScript("return document.readyState").equals("complete"));

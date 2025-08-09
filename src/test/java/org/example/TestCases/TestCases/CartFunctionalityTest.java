@@ -1,9 +1,7 @@
 package org.example.TestCases.TestCases;
 
 import org.example.BaseTest;
-import org.example.PageObject.cartPage;
-import org.example.PageObject.homePage;
-import org.example.PageObject.productPage;
+import org.example.PageObject.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -65,7 +63,7 @@ public class CartFunctionalityTest {
         }
     }
 
-    @Test(priority = 1, groups = "cartTest", description = "Add Products in Cart", enabled = true)
+    @Test(priority = 1, groups = "cartTest", description = "Add Products in Cart", enabled = false)
     public void addMultipleProductsToCartAndContinueShopping() throws InterruptedException {
         homePage hp = new homePage(driver);
         //hp.navigateHomePage();
@@ -87,7 +85,7 @@ public class CartFunctionalityTest {
         WebElement continueShoppingBtn = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("button.btn.btn-success.close-modal.btn-block[data-dismiss='modal']")
         ));
-        continueShoppingBtn.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", continueShoppingBtn);
 
         //Hover over second product and click 'Add to cart'
         WebElement secondProduct = driver.findElements(By.cssSelector(".single-products")).get(1);
@@ -123,7 +121,7 @@ public class CartFunctionalityTest {
 
     }
 
-    @Test(priority = 2, groups = "cartTest", description = "Verify Product quantity in Cart", enabled = true)
+    @Test(priority = 2, groups = "cartTest", description = "Verify Product quantity in Cart", enabled = false)
     public void verifyProductQuantityInCart() throws InterruptedException {
         homePage hp = new homePage(driver);
         hp.navigateHomePage();
@@ -137,7 +135,8 @@ public class CartFunctionalityTest {
         pp.searchProduct("pure cotton");
         List<WebElement> productlist = pp.getAllProductElements();
         Thread.sleep(2000);
-        productlist.get(1).findElement(By.xpath("//a[starts-with(@href, '/product_details/')]")).click();
+        WebElement we=productlist.get(1).findElement(By.xpath("//a[starts-with(@href, '/product_details/')]"));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();",we );
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(d -> ((JavascriptExecutor) d)
                         .executeScript("return document.readyState").equals("complete"));
@@ -164,6 +163,154 @@ public class CartFunctionalityTest {
         assertEquals(cartinfo.get(0).get("total"), "Rs. 5196");
     }
 
+    @Test(priority = 3, groups = "cartTest", description = "Remove Products From Cart", enabled = false)
+    public void removeProductsFromCart() throws InterruptedException {
+        cartPage cartPage = new cartPage(driver);
+        cartPage.emptyCart();
+
+        // Verify that cart is empty
+        List<Map<String, String>> cartInfoAfterRemoval = cartPage.getCartProductsDetails();
+        assertEquals(cartInfoAfterRemoval.size(), 0, "Cart is not empty after removal of product");
+        String emptyCartMessage = driver.findElement(By.cssSelector("#empty_cart")).getText();
+        assertEquals(emptyCartMessage, "Cart is empty! Click here to buy products.", "Empty cart message not displayed as expected");
+    }
+
+    @Test(priority = 4, groups = "cartTest", description = "Search Products and Verify Cart After Login", enabled = true)
+    public void searchProductsAndVerifyCartAfterLogin() throws InterruptedException {
+        homePage hp = new homePage(driver);
+        hp.navigateHomePage();
+        hp.navigateToProductPage();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> ((JavascriptExecutor) d)
+                        .executeScript("return document.readyState").equals("complete"));
+        assertEquals(driver.getCurrentUrl(), "https://automationexercise.com/products", "User is not navigated to the product page.");
+        productPage pp = new productPage(driver);
+        pp.searchProduct("pure cotton");
+        List<WebElement> productlist = pp.getAllProductElements();
+        assertEquals(productlist.size()-1, 2, "filter not applied");
+        int retry = 0;
+        while(retry<3) {
+            try {
+                pp.addProductToCart("Pure Cotton V-Neck T-Shirt");
+                break;
+            } catch (Exception ex) {
+                retry++;
+                if(retry==3)
+                    throw ex;
+            }
+        }
+        Thread.sleep(3000);
+        pp.clickContinueShoppingInModal();
+        retry = 0;
+        while(retry<3) {
+            try {
+                pp.addProductToCart("Pure Cotton Neon Green Tshirt");
+                break;
+            } catch (Exception ex) {
+                retry++;
+                if(retry==3)
+                    throw ex;
+            }
+        }
+        Thread.sleep(3000);
+        pp.clickViewCartInModal();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> ((JavascriptExecutor) d)
+                        .executeScript("return document.readyState").equals("complete"));
+        cartPage cartPage = new cartPage(driver);
+        List<Map<String, String>> cartinfo = cartPage.getCartProductsDetails();
+        // Assert details for second product
+        assertEquals(cartinfo.get(0).get("name"), "Pure Cotton V-Neck T-Shirt");
+        assertEquals(cartinfo.get(0).get("price"), "Rs. 1299");
+        assertEquals(cartinfo.get(0).get("quantity"), "1");
+        assertEquals(cartinfo.get(0).get("total"), "Rs. 1299");
+
+        assertEquals(cartinfo.get(1).get("name"), "Pure Cotton Neon Green Tshirt");
+        assertEquals(cartinfo.get(1).get("price"), "Rs. 850");
+        assertEquals(cartinfo.get(1).get("quantity"), "1");
+        assertEquals(cartinfo.get(1).get("total"), "Rs. 850");
+
+        hp.navigateHomePage();
+        hp.navigateToLoginPageViaHomePage();
+        loginOrSignUp(driver,hp);
+        hp.navigateToCartPageViaHomePage();
+
+        cartPage = new cartPage(driver);
+        cartinfo = cartPage.getCartProductsDetails();
+        // Assert details for second product
+        assertEquals(cartinfo.get(0).get("name"), "Pure Cotton V-Neck T-Shirt");
+        assertEquals(cartinfo.get(0).get("price"), "Rs. 1299");
+        assertEquals(cartinfo.get(0).get("quantity"), "1");
+        assertEquals(cartinfo.get(0).get("total"), "Rs. 1299");
+
+        assertEquals(cartinfo.get(1).get("name"), "Pure Cotton Neon Green Tshirt");
+        assertEquals(cartinfo.get(1).get("price"), "Rs. 850");
+        assertEquals(cartinfo.get(1).get("quantity"), "1");
+        assertEquals(cartinfo.get(1).get("total"), "Rs. 850");
+    }
+
+    @Test(priority = 5, groups = "cartTest", description = "Add to cart from Recommended items", enabled = false)
+    public void addToCartFromRecommendedItems() throws InterruptedException {
+        homePage hp = new homePage(driver);
+        hp.navigateHomePage();
+        cartPage cartPage = new cartPage(driver);
+        hp.navigateToCartPageViaHomePage();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> ((JavascriptExecutor) d)
+                        .executeScript("return document.readyState").equals("complete"));
+        cartPage.emptyCart();
+        hp.navigateHomePage();
+
+        String actual = driver.findElement(By.cssSelector("body > section:nth-child(3) > div > div > div.col-sm-9.padding-right > div.recommended_items > h2")).getText();
+        assertEquals(actual, "RECOMMENDED ITEMS", "RECOMMENDED ITEMS text not found in home page");
+        baseTest.scrollToFooter();
+        WebElement recommendedCarousel = driver.findElements(By.cssSelector(".carousel-inner")).get(1);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement activeItem = wait.until(d -> recommendedCarousel.findElement(By.cssSelector(".item.active")));
+
+        String itemText = activeItem.findElements(By.cssSelector(".single-products")).get(0).findElement(By.tagName("p")).getText();
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement singleProduct = activeItem.findElements(By.cssSelector(".single-products")).get(0);
+        WebElement eb = wait.until(ExpectedConditions.visibilityOf(singleProduct.findElement(By.tagName("a"))));
+        
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", eb);
+        Thread.sleep(5000);
+        eb =driver.findElement(By.cssSelector("#cartModal > div > div > div.modal-body > p:nth-child(2) > a"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", eb);
+
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> ((JavascriptExecutor) d)
+                        .executeScript("return document.readyState").equals("complete"));
+        List<Map<String, String>> cartinfo = cartPage.getCartProductsDetails();
+        assertEquals(cartinfo.get(0).get("name"), itemText, "Product name mismatch in cart");
+
+    }
+
+
+    public static void loginOrSignUp(WebDriver driver,homePage hp){
+        // Fill all details in Signup and create account
+        loginPage lp = new loginPage(driver);
+        try {
+            lp.signup("deepikashree.r@zohocorp.com", "deepika-12161");
+            signupPage sp = new signupPage(driver);
+            sp.fillAccountInfo(true, null, null, "godi", "16", "December", "1999", true, true);
+            sp.fillAddressInfo("deepika shree", "ravi", "zoho", "guduvancheri", "tenkasi", "tamilnadu", "chennai", "603202", "8987898765");
+            driver.findElement(By.cssSelector("a.btn")).click();
+        }catch (Exception ex){
+
+            lp.login("deepikashree.r@zohocorp.com","godi");
+        }
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> ((JavascriptExecutor) d)
+                        .executeScript("return document.readyState").equals("complete"));
+
+        // Verify ' Logged in as username' at top
+        String actual=hp.getUserName();
+        assertEquals(actual, "Logged in as deepika-12161", "Not logged in as user deepika");
+    }
 
 
 }

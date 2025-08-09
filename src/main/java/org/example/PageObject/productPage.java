@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -49,7 +48,7 @@ public class productPage {
                                 .executeScript("return document.readyState").equals("complete"));
                 WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
                 WebElement clickable = wait.until(ExpectedConditions.elementToBeClickable(product.findElement(By.cssSelector("div.product-overlay > div > a"))));
-                clickable.click();
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickable);
             }
 
         }
@@ -58,7 +57,7 @@ public class productPage {
     public void clickContinueShoppingInModal() {
         WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
         WebElement continueShoppingButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-overlay > div > a")));
-        continueShoppingButton.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", continueShoppingButton);
     }
 
     public void clickViewCartInModal() {

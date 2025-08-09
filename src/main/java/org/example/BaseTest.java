@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 public class BaseTest {
     public WebDriver driver;
@@ -40,6 +41,7 @@ public class BaseTest {
 //            driver.manage().window().setSize(new Dimension(1440,900));
             driver.navigate().to(ipaddress);
             driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             //driver.navigate().refresh();
         }
         catch (Exception ex){

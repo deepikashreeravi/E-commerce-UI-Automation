@@ -46,7 +46,7 @@ public class OrderPlacementTest {
         }
     }
 
-    @Test(priority = 1, groups = "orderplacement", description = "Place Order: Register while Checkout", enabled = false)
+    @Test(priority = 1, groups = "orderplacement", description = "Place Order: Register while Checkout", enabled = true)
     public void placeOrderRegisterWhileCheckout() throws InterruptedException {
         homePage hp = new homePage(driver);
         hp.navigateToProductPage();
@@ -92,7 +92,7 @@ public class OrderPlacementTest {
 
     }
 
-    @Test(priority = 2, groups = "orderplacement", description = "Place Order: Register before Checkout", enabled = false)
+    @Test(priority = 2, groups = "orderplacement", description = "Place Order: Register before Checkout", enabled = true)
     public void RegisterBeforeCheckout() throws InterruptedException {
         homePage hp = new homePage(driver);
         hp.navigateHomePage();

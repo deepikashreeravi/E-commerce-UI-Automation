@@ -56,7 +56,7 @@ public class productPage {
 
     public void clickContinueShoppingInModal() {
         WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
-        WebElement continueShoppingButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-overlay > div > a")));
+        WebElement continueShoppingButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#cartModal > div > div > div.modal-footer > button")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", continueShoppingButton);
     }
 

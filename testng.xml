@@ -7,12 +7,12 @@
 
     <test name="AllTests">
         <classes>
-<!--            <class name="org.example.TestCases.TestCases.RegisterUserTest"/>-->
+            <class name="org.example.TestCases.TestCases.RegisterUserTest"/>
 <!--            <class name="org.example.TestCases.TestCases.LoginUserTest"/>-->
 <!--            <class name="org.example.TestCases.TestCases.CategoryAndBrandTest"/>-->
 <!--            <class name="org.example.TestCases.TestCases.ProductInteractionTest"/>-->
 <!--            <class name="org.example.TestCases.TestCases.SubscriptionTests"/>-->
-<!--            <class name="org.example.TestCases.TestCases.CartFunctionalityTest"/>-->
+            <class name="org.example.TestCases.TestCases.CartFunctionalityTest"/>
 <!--            <class name="org.example.TestCases.TestCases.OrderPlacementTest"/>-->
                    <class name="org.example.TestCases.TestCases.ScrollFunctionalityTest"/>
 

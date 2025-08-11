@@ -22,7 +22,7 @@ public class ScrollFunctionalityTest {
 //    TC25	Scroll Up using 'Arrow' button and Scroll Down
 //    TC26	Scroll Up without 'Arrow' button and Scroll Down
 
-    WebDriver driver = null;
+    public WebDriver driver = null;
     @BeforeClass
     public void setUp() {
         BaseTest baseTest = new BaseTest();

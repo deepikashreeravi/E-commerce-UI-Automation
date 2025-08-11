@@ -2,6 +2,7 @@ package org.example.TestCases.TestCases;
 
 import org.example.BaseTest;
 import org.example.PageObject.*;
+import org.example.Retry;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -63,7 +64,7 @@ public class CartFunctionalityTest {
         }
     }
 
-    @Test(priority = 1, groups = "cartTest", description = "Add Products in Cart", enabled = false)
+    @Test(priority = 1, groups = "cartTest", description = "Add Products in Cart", enabled = true, retryAnalyzer = Retry.class)
     public void addMultipleProductsToCartAndContinueShopping() throws InterruptedException {
         homePage hp = new homePage(driver);
         //hp.navigateHomePage();
@@ -121,7 +122,7 @@ public class CartFunctionalityTest {
 
     }
 
-    @Test(priority = 2, groups = "cartTest", description = "Verify Product quantity in Cart", enabled = false)
+    @Test(priority = 2, groups = "cartTest", description = "Verify Product quantity in Cart", enabled = true, retryAnalyzer = Retry.class)
     public void verifyProductQuantityInCart() throws InterruptedException {
         homePage hp = new homePage(driver);
         hp.navigateHomePage();
@@ -163,7 +164,7 @@ public class CartFunctionalityTest {
         assertEquals(cartinfo.get(0).get("total"), "Rs. 5196");
     }
 
-    @Test(priority = 3, groups = "cartTest", description = "Remove Products From Cart", enabled = false)
+    @Test(priority = 3, groups = "cartTest", description = "Remove Products From Cart", enabled = true)
     public void removeProductsFromCart() throws InterruptedException {
         cartPage cartPage = new cartPage(driver);
         cartPage.emptyCart();
@@ -175,7 +176,7 @@ public class CartFunctionalityTest {
         assertEquals(emptyCartMessage, "Cart is empty! Click here to buy products.", "Empty cart message not displayed as expected");
     }
 
-    @Test(priority = 4, groups = "cartTest", description = "Search Products and Verify Cart After Login", enabled = true)
+    @Test(priority = 4, groups = "cartTest", description = "Search Products and Verify Cart After Login", enabled = true, retryAnalyzer = Retry.class)
     public void searchProductsAndVerifyCartAfterLogin() throws InterruptedException {
         homePage hp = new homePage(driver);
         hp.navigateHomePage();
@@ -249,7 +250,7 @@ public class CartFunctionalityTest {
         assertEquals(cartinfo.get(1).get("total"), "Rs. 850");
     }
 
-    @Test(priority = 5, groups = "cartTest", description = "Add to cart from Recommended items", enabled = false)
+    @Test(priority = 5, groups = "cartTest", description = "Add to cart from Recommended items", enabled = true, retryAnalyzer = Retry.class)
     public void addToCartFromRecommendedItems() throws InterruptedException {
         homePage hp = new homePage(driver);
         hp.navigateHomePage();

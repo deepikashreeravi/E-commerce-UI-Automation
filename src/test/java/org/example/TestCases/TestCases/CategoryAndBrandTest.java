@@ -28,7 +28,7 @@ public class CategoryAndBrandTest {
 //    TC18	View Category Products
 //    TC19	View & Cart Brand Products
 
-    WebDriver driver = null;
+    public WebDriver driver = null;
     @BeforeClass
     public void setUp() {
         BaseTest baseTest = new BaseTest();

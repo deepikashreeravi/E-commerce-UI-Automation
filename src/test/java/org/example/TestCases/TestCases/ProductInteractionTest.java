@@ -20,7 +20,7 @@ import static org.testng.Assert.assertEquals;
 
 public class ProductInteractionTest {
 
-    WebDriver driver = null;
+    public WebDriver driver = null;
     @BeforeClass
     public void setUp() {
         BaseTest baseTest = new BaseTest();

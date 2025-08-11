@@ -21,7 +21,7 @@ import static org.testng.Assert.assertTrue;
 
 public class LoginUserTest  {
 
-    WebDriver driver = null;
+    public WebDriver driver = null;
     @BeforeClass
     public void setUp() {
         BaseTest baseTest = new BaseTest();

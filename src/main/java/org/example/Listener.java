@@ -27,7 +27,25 @@ public class Listener extends BaseTest  implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
+        WebDriver driver=null;
+
+        try {
+            driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+            //   Field driverField = result.getTestClass().getRealClass().getSuperclass().getDeclaredField("driver");
+//            driverField.setAccessible(true);
+//            driver = (WebDriver) driverField.get(result.getInstance());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        String filepath =null;
+        try {
+            filepath = getScreenshot(result.getMethod().getMethodName(),driver);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         extentTest.get().log(Status.PASS,"Test Passed");
+        extentTest.get().addScreenCaptureFromPath(filepath,result.getMethod().getMethodName());
     }
 
     @Override
@@ -88,8 +106,8 @@ public class Listener extends BaseTest  implements ITestListener {
         }
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(source, new File("/home/deepika-12161/build/test/ss"+testCaseName+".png"));
-        return "/home/deepika-12161/build/test/ss"+testCaseName+".png";
+        FileUtils.copyFile(source, new File(System.getProperty("user.dir")+"/test/ss/"+testCaseName+".png"));
+        return System.getProperty("user.dir")+"/test/ss/"+testCaseName+".png";
     }
 
 

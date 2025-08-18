@@ -44,10 +44,88 @@
             <artifactId>json</artifactId>
             <version>20250517</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.27.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.27.0</version>
+        </dependency>
         <!-- other dependencies here -->
     </dependencies>
+    <profiles>
+    <profile>
+        <id>register_login_test</id>
+        <build>
+            <pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.2.5</version>
+                        <configuration>
+                            <!--                    <parallel>classes</parallel>-->
+                            <!--                    <threadCount>2</threadCount>-->
+                            <suiteXmlFiles>
+                                <suiteXmlFile>register_login.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </pluginManagement>
+        </build>
+    </profile>
+    <profile>
+        <id>test</id>
+        <build>
+            <pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.2.5</version>
+                        <configuration>
+                            <!--                    <parallel>classes</parallel>-->
+                            <!--                    <threadCount>2</threadCount>-->
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </pluginManagement>
+        </build>
+    </profile>
+        <profile>
+            <id>cucumberTests</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>3.2.5</version>
+                            <configuration>
+                                <!--                    <parallel>classes</parallel>-->
+                                <!--                    <threadCount>2</threadCount>-->
+                                <includes>
+                                    <include>**/TestNGTestRunner.java</include>
+                                </includes>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
+        <pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -62,6 +140,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        </pluginManagement>
     </build>
 
     <properties>

@@ -82,9 +82,10 @@ public void testProductPage(){
 }
 
 @Test(priority = 2, groups = "productpage", description = "Verify Category Products",enabled = true)
-public void viewCategoryProducts() {
+public void viewCategoryProducts() throws InterruptedException {
     homePage hp = new homePage(driver);
     hp.navigateHomePage();
+    Thread.sleep(3000);
     //Verify that categories are visible on left side bar
    String actual = driver.findElement(By.cssSelector("body > section:nth-child(3) > div > div > div.col-sm-3 > div > h2")).getText();
     assertEquals(actual, "CATEGORY", "Category text not found in left sidebar");

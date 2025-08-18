@@ -1,88 +1,125 @@
 package org.example.PageObject;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 public class signupPage {
     public WebDriver driver;
 
+    @FindBy(id = "uniform-id_gender1")
+    private WebElement mrRadio;
+
+    @FindBy(id = "uniform-id_gender2")
+    private WebElement mrsRadio;
+
+    @FindBy(id = "name")
+    private WebElement nameInput;
+
+    @FindBy(id = "email")
+    private WebElement emailInput;
+
+    @FindBy(id = "password")
+    private WebElement passwordInput;
+
+    @FindBy(id = "days")
+    private WebElement daySelect;
+
+    @FindBy(id = "months")
+    private WebElement monthSelect;
+
+    @FindBy(id = "years")
+    private WebElement yearSelect;
+
+    @FindBy(id = "newsletter")
+    private WebElement newsletterCheckbox;
+
+    @FindBy(id = "optin")
+    private WebElement offersCheckbox;
+
+    @FindBy(id = "first_name")
+    private WebElement firstNameInput;
+
+    @FindBy(id = "last_name")
+    private WebElement lastNameInput;
+
+    @FindBy(id = "company")
+    private WebElement companyInput;
+
+    @FindBy(id = "address1")
+    private WebElement address1Input;
+
+    @FindBy(id = "address2")
+    private WebElement address2Input;
+
+    @FindBy(id = "state")
+    private WebElement stateInput;
+
+    @FindBy(id = "city")
+    private WebElement cityInput;
+
+    @FindBy(id = "zipcode")
+    private WebElement zipcodeInput;
+
+    @FindBy(id = "mobile_number")
+    private WebElement mobileNumberInput;
+
+    @FindBy(css = "button[data-qa='create-account']")
+    private WebElement createAccountBtn;
+
     public signupPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
-    public void fillAccountInfo(Boolean ismr, String name, String email,String password,String day,String month,String year,Boolean issignup, Boolean receiveoffers){
+    public void fillAccountInfo(Boolean ismr, String name, String email, String password, String day, String month, String year, Boolean issignup, Boolean receiveoffers) {
+        if (ismr) {
+            mrRadio.click();
+        } else {
+            mrsRadio.click();
+        }
+        if (name != null) {
+            nameInput.sendKeys(name);
+        }
+        if (email != null) {
+            emailInput.sendKeys(email);
+        }
+        passwordInput.sendKeys(password);
 
-        // Title
-        if(ismr) {
-            driver.findElement(By.id("uniform-id_gender1")).click();
-        }else {
-            driver.findElement(By.id("uniform-id_gender2")).click();
-        }
-        // Name
-        if (name!=null) {
-            driver.findElement(By.id("name")).sendKeys(name);
-        }
-        // Email
-        if(email!=null) {
-            driver.findElement(By.id("email")).sendKeys(email);
-        }
-        // Password
-        driver.findElement(By.id("password")).sendKeys(password);
-        // Day of DOB
-        Select select = new Select(driver.findElement(By.id("days")));
-        select.selectByVisibleText(day);
-        // Month of DOB
-        select = new Select(driver.findElement(By.id("months")));
-        select.selectByVisibleText(month);
-        // Year of DOB
-        select = new Select(driver.findElement(By.id("years")));
-        select.selectByVisibleText(year);
+        new Select(daySelect).selectByVisibleText(day);
+        new Select(monthSelect).selectByVisibleText(month);
+        new Select(yearSelect).selectByVisibleText(year);
 
-        //Select checkbox 'Sign up for our newsletter!'
-        if(issignup) {
-            WebElement checkbox = driver.findElement(By.id("newsletter"));
-            if (!checkbox.isSelected()) {
-                checkbox.click();
-            }
+        if (issignup && !newsletterCheckbox.isSelected()) {
+            newsletterCheckbox.click();
         }
-        //Select checkbox 'Receive special offers from our partners!'
-        if(receiveoffers) {
-            driver.findElement(By.id("optin")).click();
+        if (receiveoffers && !offersCheckbox.isSelected()) {
+            offersCheckbox.click();
         }
-
     }
 
-    public void fillAddressInfo(String firstName, String lastName, String company, String address1,String address2, String state,String city,String zipcode,String mobileno){
-        //Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
-        driver.findElement(By.id("first_name")).sendKeys(firstName);
-        driver.findElement(By.id("last_name")).sendKeys(lastName);
-        driver.findElement(By.id("company")).sendKeys(company);
-        driver.findElement(By.id("address1")).sendKeys(address1);
-        driver.findElement(By.id("address2")).sendKeys(address2);
-        driver.findElement(By.id("state")).sendKeys(state);
-        driver.findElement(By.id("city")).sendKeys(city);
-        driver.findElement(By.id("zipcode")).sendKeys(zipcode);
-        driver.findElement(By.id("mobile_number")).sendKeys(mobileno);
+    public void fillAddressInfo(String firstName, String lastName, String company, String address1, String address2, String state, String city, String zipcode, String mobileno) {
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        companyInput.sendKeys(company);
+        address1Input.sendKeys(address1);
+        address2Input.sendKeys(address2);
+        stateInput.sendKeys(state);
+        cityInput.sendKeys(city);
+        zipcodeInput.sendKeys(zipcode);
+        mobileNumberInput.sendKeys(mobileno);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        //Click 'Create Account button'
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement createAccountBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.cssSelector("button[data-qa='create-account']")
-                )
-        );
-        createAccountBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(createAccountBtn)).click();
     }
 }

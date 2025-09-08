@@ -51,7 +51,7 @@ public class LoginUserTest  {
         assertTrue(driver.getCurrentUrl().startsWith("https://automationexercise.com/"),
                 "Unexpected URL: " + driver.getCurrentUrl());
 
-        System.out.println("✅ Homepage loaded and visible successfully.");
+        System.out.println("Homepage loaded and visible successfully.");
 
         //4. Click on 'Signup / Login' button
         homePage hp = new homePage(driver);

@@ -32,14 +32,6 @@ public class BaseTest {
     public  void setUp() {
         String methodName="setup";  //No I18N
         try {
-//            // 1. Kill any stray Chrome processes from previous runs
-//            try {
-//                Runtime.getRuntime().exec("pkill -f chrome");
-//                Runtime.getRuntime().exec("pkill -f chromedriver");
-//                Thread.sleep(1000); // give time for processes to stop
-//            } catch (Exception e) {
-//                System.out.println("No previous Chrome processes found.");
-//            }
 
             Properties prop = new Properties();
             FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"/src/main/resources/GlobalData.properties");  //No I18N
@@ -58,23 +50,6 @@ public class BaseTest {
                     .clearDriverCache()
                     .driverVersion("135.0.7049.84")
                     .setup();
-
-//            ChromeOptions options = new ChromeOptions();
-//            options.addArguments("--disable-gpu");
-//            options.addArguments("--no-sandbox");
-//            options.addArguments("--disable-dev-shm-usage");
-//            options.addArguments("--remote-allow-origins=*");
-//            options.addArguments("--start-maximized");
-//            options.addArguments("--remote-debugging-port=0");
-//
-//            options.addArguments("--incognito");
-//            // ✅ Generate a unique temp profile dir for every run
-//            Path tempProfile = Files.createTempDirectory("selenium-chrome");
-//            options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
-
-
-
-            // options.addArguments("--user-data-dir=" + tempProfile.toString());
 
             // 2. Create a unique temp directory for this run
             String uniqueProfileDir = Files.createTempDirectory("selenium-profile-" + UUID.randomUUID()).toString();

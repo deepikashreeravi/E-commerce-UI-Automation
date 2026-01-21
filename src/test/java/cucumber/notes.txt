@@ -1,0 +1,20 @@
+Feature: User Authentication
+  As a registered user
+  I want to log into the application
+  So that I can access my dashboard
+
+  Background:
+    Given the browser is open
+    And the user is on the "https://example.com/login" page
+
+  Scenario: Successful Login with valid credentials
+    When the user enters "test_user" and "password123"
+    And clicks the "Login" button
+    Then the user should be redirected to the "Dashboard" page
+    And a "Welcome" message should be displayed
+
+  Scenario: Unsuccessful Login with invalid password
+    When the user enters "test_user" and "wrong_password"
+    And clicks the "Login" button
+    Then an error message "Invalid credentials" should be shown
+

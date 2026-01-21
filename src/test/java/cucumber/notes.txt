@@ -18,3 +18,36 @@ Feature: User Authentication
     And clicks the "Login" button
     Then an error message "Invalid credentials" should be shown
 
+Key Benefits
+Collaboration: Bridges the gap between business and technical teams.
+
+Living Documentation: The tests serve as up-to-date documentation of how the system works.
+
+Automation-Ready: Tools like Cucumber, SpecFlow, or Behave map these steps directly to code snippets (Step Definitions).
+
+Core Components of a Feature File
+A standard feature file follows a specific hierarchy to ensure clarity and automation compatibility.
+
+1. Feature
+This is the high-level description of the software functionality being tested.
+
+Format: Feature: [Title]
+
+Description: A brief explanation of the business value.
+
+2. Background (Optional)
+Used to define steps that are common to all scenarios in the file (e.g., logging in). It runs before every scenario.
+
+3. Scenario
+A specific executable example or test case.
+
+Format: Scenario: [Title]
+
+4. Gherkin Keywords (Steps)
+Given: The initial context or "pre-condition" (e.g., "Given the user is on the login page").
+
+When: The action or event (e.g., "When the user enters valid credentials").
+
+Then: The expected outcome or "post-condition" (e.g., "Then the dashboard should display").
+
+And / But: Used to add more conditions to any of the above without repeating the keyword.
